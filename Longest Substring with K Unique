@@ -1,0 +1,77 @@
+class Solution {
+    public int longestKSubstr(String s, int k) {
+      int n=s.length();
+      HashMap<Character,Integer> mp=new HashMap<>();
+      int maxi=-1;
+       
+        
+      /*  for(int i=0;i<n;i++){
+            set.clear();
+            for(int j=i;j<n;j++){
+                set.add(s.charAt(j));
+                
+                if(set.size()==k){
+                    int length=j-i+1;
+                    maxi=Math.max(maxi,length);
+                }
+                
+                if(set.size() > k){
+                   // set.clear(); Yha pe set ko clear krne aka mtlvb koi specific situation pe clear kr rhe hai but hamehs aclear krnaai                    
+                   break;
+                    
+                }
+                
+            }
+        }*/
+        
+        int start=0;
+        int end=0;
+        
+        while(end < n){
+            char right=s.charAt(end);
+            mp.put(right,mp.getOrDefault(right,0)+1);
+            
+            if(mp.size()==k){
+                int length=end-start+1;
+                maxi=Math.max(length,maxi);
+            }
+               
+            
+            else if(mp.size() > k){
+                while(start <= end && mp.size() != k){
+                    mp.put(s.charAt(start),mp.get(s.charAt(start))-1);
+                    if(mp.get(s.charAt(start))==0)mp.remove(s.charAt(start));
+                    start++;
+                }
+            }
+            end++;
+               
+        }
+                
+        return maxi;
+    }
+}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
