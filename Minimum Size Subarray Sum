@@ -1,0 +1,28 @@
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int n=nums.length;
+        int min=Integer.MAX_VALUE;;
+        int start=0;
+        int end=0;
+        int sum=0;
+       //Here sliding window will work because we are not dealing with negative numbers in testcases
+       //Slidng window wont be working for negative numbers
+        while(end < n){
+            sum += nums[end];
+
+            while(sum >= target && start <= end){
+                int length= end-start+1;
+                sum -=nums[start];
+                min=Math.min(length,min);
+                start++;
+            }
+
+          /*  if(sum == target){
+                min=Math.min(min,end-start+1);
+            }*/
+            end++;
+
+        }
+        return (min==Integer.MAX_VALUE)?0:min;
+    }
+}
