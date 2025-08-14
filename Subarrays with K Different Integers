@@ -1,0 +1,40 @@
+class Solution {
+    public int subarraysWithKDistinct(int[] nums, int k) {
+
+        //Hamesha dry run krne ke baad jb lage ki pta nhi chal rha hi kaise window ko aage peeche kre confused ho rhe tb modifies wale ka use kro
+         int ans=atMostK(nums,k) - atMostK(nums,k-1);
+         return ans;
+    }
+
+
+
+    public int atMostK(int[] nums,int k){
+        int n=nums.length;
+        HashMap<Integer,Integer> mp=new HashMap<>();
+        int count=0;
+
+        int start=0;
+        int end=0;
+
+        while(end < n){
+            int right=nums[end];
+            mp.put(right,mp.getOrDefault(right,0)+1);
+
+            while(start<=end && mp.size() > k){ // If jyada distinct charcaters aa gye
+                int left=nums[start];
+                mp.put(left,mp.get(left)-1);
+                if(mp.get(left)==0){
+                    mp.remove(left);
+                }
+                start++;
+            }
+
+            count += end-start+1;//At most k hai naa ilsiye usse chota values ke liye bhi valid subarray hoga
+            
+
+            end++;
+        }
+
+        return count;
+    }
+}
